@@ -10,7 +10,7 @@ var converter = HTMLCharset(res.headers, 1024);
 * responseHeader {Object | String} Client response. this will be passed to `charset` module.
 * bufferSize {number} The maximum size of buffer for detecting charset (Default: 512).  
 
-Returns a new TransformStream that detects charset from http client response and chunked html content, finally converts html content to UTF-8 strings Buffers. First, it stores html contents Buffers as big as bufferSize (default: 512 bytes) and detects charset strings. Then, it converts html contents to UTF-8 strings Buffers. At this time, the charset strings in a `meta` tag is replaced to "UTF-8" (e.g. `<meta http-equiv="Content-Type" content="text/html; charset=EUC_JP">` will be replaced to `<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">`). Finally, you can get UTF-8 html strings Buffers.
+Returns a new TransformStream that detects charset from http client response and chunked html content, finally converts html content to UTF-8 strings Buffers. First, it stores html contents Buffers as big as bufferSize (default: 512 bytes) and detects charset strings. Then, it converts html contents to UTF-8 strings Buffers. At this time, the charset strings in a `meta` tag is replaced to "UTF-8" (e.g. `<meta http-equiv="Content-Type" content="text/html; charset=EUC_JP">` will be replaced to `<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">`). Finally, you can get UTF-8 html strings Buffers. If the charset couldn't be detected, this stream passes html contents with no modification.
 
 # Example
 ```js
