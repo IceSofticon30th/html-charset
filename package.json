@@ -1,0 +1,32 @@
+{
+  "name": "html-charset",
+  "version": "0.0.1",
+  "description": "A TransformStream that detects charset from http client response and content, and converts to utf-8.",
+  "main": "index.js",
+  "dependencies": {
+    "request": "^2.69.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/IceSofticon30th/html-charset.git"
+  },
+  "keywords": [
+    "http",
+    "charset",
+    "stream",
+    "streaming",
+    "convert",
+    "utf-8",
+    "utf8"
+  ],
+  "author": "Yuto Ino",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/IceSofticon30th/html-charset/issues"
+  },
+  "homepage": "https://github.com/IceSofticon30th/html-charset#readme"
+}
