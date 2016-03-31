@@ -28,6 +28,7 @@ function HTMLCharsetConverter(responseHeader, bufferSize) {
     
 
     var htmlCharsetConverter = new PassThrough();
+    htmlCharsetConverter.resume();
 
     htmlCharsetConverter.on('pipe', function(source) {
         if (source.unpipe) source.unpipe(this);
