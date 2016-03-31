@@ -73,7 +73,7 @@ HTMLEncodingConverter.prototype._flush = function (callback) {
         var encoding = charset(this._responseHeader, buffer, this._detectionBufferSize);
         
         if (encoding) {
-            var converter = iconv.decodeStream(this._encoding); 
+            var converter = iconv.decodeStream(encoding); 
             converter.on('data', function (data) {
                 self.push(data);
                 callback();
