@@ -7,10 +7,11 @@ var Transform = require('stream').Transform;
 util.inherits(HTMLCharsetConverter, Transform);
 
 function HTMLCharsetConverter(responseHeader, bufferSize) {
+    /*
     if (!(this instanceof HTMLCharsetConverter)) return new HTMLCharsetConverter(responseHeader, bufferSize);
 
     Transform.call(this);
-    
+    */
     var self = this;
     
     var htmlEncodingConverter = HTMLEncodingConverter(responseHeader, bufferSize);
@@ -33,13 +34,16 @@ function HTMLCharsetConverter(responseHeader, bufferSize) {
         });
     });
     
+    /*
     htmlEncodingConverter.on('data', function (data) {
         tr.write(data);
     });
-    
     tr.on('data', function (data) {
         self.push(data);
     });
+    */
+    
+    return htmlEncodingConverter.pipe(tr);
     
     this._htmlEncodingConverter = htmlEncodingConverter;
     this._trumpet = tr;
