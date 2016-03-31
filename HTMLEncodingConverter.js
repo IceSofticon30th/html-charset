@@ -4,8 +4,6 @@ var Transform = stream.Transform;
 var charset = require('charset');
 var iconv = require('iconv-lite');
 
-var CHARTSET = /(?:charset|encoding)\s*=\s*['"]? *([\w\-]+)/i;
-
 util.inherits(HTMLEncodingConverter, Transform);
 
 module.exports = HTMLEncodingConverter;
@@ -38,7 +36,7 @@ HTMLEncodingConverter.prototype._transform = function(chunk, encoding, callback)
         this._detectionBufferArray.push(chunk);
         this._bufferTotalLength += chunk.length;
         var buffer = Buffer.concat(this._detectionBufferArray);
-        var encoding = charset(this._responseHeader, buffer);
+        var encoding = charset(this._responseHeader, buffer, this._detectionBufferSize);
         
         if (encoding) {
             var converter = iconv.decodeStream(encoding);
@@ -72,7 +70,7 @@ HTMLEncodingConverter.prototype._flush = function (callback) {
         }
     } else {
         var buffer = Buffer.concat(this._detectionBufferArray);
-        var encoding = charset(this._responseHeader, buffer);
+        var encoding = charset(this._responseHeader, buffer, this._detectionBufferSize);
         
         if (encoding) {
             var converter = iconv.decodeStream(this._encoding); 
