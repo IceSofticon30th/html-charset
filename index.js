@@ -1,19 +1,11 @@
 var HTMLEncodingConverter = require('./HTMLEncodingConverter.js');
 var trumpet = require('trumpet');
+var PassThrough = require('stream').PassThrough;
 
-var util = require('util');
-var Transform = require('stream').Transform;
-
-util.inherits(HTMLCharsetConverter, Transform);
+module.exports = HTMLCharsetConverter;
 
 function HTMLCharsetConverter(responseHeader, bufferSize) {
-    /*
-    if (!(this instanceof HTMLCharsetConverter)) return new HTMLCharsetConverter(responseHeader, bufferSize);
 
-    Transform.call(this);
-    */
-    var self = this;
-    
     var htmlEncodingConverter = HTMLEncodingConverter(responseHeader, bufferSize);
     var tr = trumpet();
     
@@ -34,29 +26,17 @@ function HTMLCharsetConverter(responseHeader, bufferSize) {
         });
     });
     
-    /*
-    htmlEncodingConverter.on('data', function (data) {
-        tr.write(data);
+
+    var htmlCharsetConverter = new PassThrough();
+
+    htmlCharsetConverter.on('pipe', function(source) {
+        if (source.unpipe) source.unpipe(this);
+        this._transformStream = source.pipe(htmlEncodingConverter).pipe(tr);
     });
-    tr.on('data', function (data) {
-        self.push(data);
-    });
-    */
     
-    return htmlEncodingConverter.pipe(tr);
+    htmlCharsetConverter.pipe = function(destination, options) {
+        return this._transformStream.pipe(destination, options);
+    };
     
-    this._htmlEncodingConverter = htmlEncodingConverter;
-    this._trumpet = tr;
+    return htmlCharsetConverter;
 }
-
-HTMLCharsetConverter.prototype._transform = function (chunk, encoding, callback) {
-    this._htmlEncodingConverter.write(chunk);
-    callback();
-};
-
-HTMLCharsetConverter.prototype._flush = function (callback) {
-    this._htmlEncodingConverter.end();
-    callback();
-};
-
-module.exports = HTMLCharsetConverter;
