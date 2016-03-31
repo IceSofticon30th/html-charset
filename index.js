@@ -9,7 +9,7 @@ function HTMLCharsetConverter(responseHeader, bufferSize) {
     var htmlEncodingConverter = HTMLEncodingConverter(responseHeader, bufferSize);
     var tr = trumpet();
     
-    tr.select('meta', function (elem) {
+    tr.selectAll('meta', function (elem) {
         elem.getAttribute('http-equiv', function (httpEquiv) {
             if (!httpEquiv) return;
             if (httpEquiv.toLowerCase() === 'content-type') {
