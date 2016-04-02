@@ -37,6 +37,7 @@ HTMLEncodingConverter.prototype._transform = function(chunk, encoding, callback)
         this._bufferTotalLength += chunk.length;
         var buffer = Buffer.concat(this._detectionBufferArray);
         var encoding = charset(this._responseHeader, buffer, this._detectionBufferSize);
+        encoding = (encoding === 'utf8') ? '' : encoding;
         
         if (encoding) {
             var converter = iconv.decodeStream(encoding);
@@ -71,6 +72,7 @@ HTMLEncodingConverter.prototype._flush = function (callback) {
     } else {
         var buffer = Buffer.concat(this._detectionBufferArray);
         var encoding = charset(this._responseHeader, buffer, this._detectionBufferSize);
+        encoding = (encoding === 'utf8') ? '' : encoding;
         
         if (encoding) {
             var converter = iconv.decodeStream(encoding); 
