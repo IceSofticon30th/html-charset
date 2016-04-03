@@ -1,5 +1,5 @@
 # html-charset
-A TransformStream that detects charset from http client response and content, and converts HTML to utf-8. Besides, charaset strings in a `<meta>` tag will be replaced to "UTF-8".
+A TransformStream that detects charset from http client response and content, and converts HTML to utf-8. Besides, replaces charaset strings in a `<meta>` tag to "UTF-8".
 
 # Usage
 ```js
