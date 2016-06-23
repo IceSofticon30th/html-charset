@@ -24,7 +24,7 @@ http.createServer(function (cliReq, srvRes) {
         gzip: true
     });
     
-    srvRes.setHeader('Content-Type', 'text/html');
+    srvRes.setHeader('Content-Type', 'text/html; charset=UTF-8');
     req.on('response', function (res) {
         var converter = HTMLCharset(res.headers);
         req.pipe(converter).pipe(srvRes);
