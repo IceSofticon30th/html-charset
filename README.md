@@ -33,6 +33,3 @@ http.createServer(function (cliReq, srvRes) {
 }).listen(8080);
 ```
 `req` writes html contents to `converter`. `converter` receives string/Buffer contents,  detects charset, converts contents to UTF-8 Buffer, replaces charset strings in a `<meta>` tag to `"UTF-8"`, and writes UTF-8 Buffer contents to `srvRes`. `srvRes` receives UTF-8 Buffer contents and sends them to browser.
-
-#Request to fix this README
-I'm not good at English. Someone please fix my wrong English.
